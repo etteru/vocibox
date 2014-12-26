@@ -10,6 +10,7 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -25,10 +26,10 @@ public class Expression implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "expression")
+    @Column(name = "expression", nullable = false)
     private String expression;
 
-    @Column(name = "translation")
+    @Column(name = "translation", nullable = false)
     private String translation;
 
     @Column(name = "masculine")
@@ -70,7 +71,7 @@ public class Expression implements Serializable {
     @Column(name = "priority")
     private Integer priority;
 
-    @Column(name = "marked")
+    @Column(name = "marked", nullable = false)
     private Boolean marked;
 
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
