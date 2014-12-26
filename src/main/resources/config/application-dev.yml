@@ -4,14 +4,14 @@ server:
 spring:
     profiles:
         active: dev
-    
+
     datasource:
         dataSourceClassName: com.mysql.jdbc.jdbc2.optional.MysqlDataSource
         url: jdbc:mysql://localhost:3306/vocibox
-        databaseName: 
-        serverName: 
+        databaseName:
+        serverName:
         username: root
-        password: 
+        password: BratwurstMitSenf
         cachePrepStmts: true
         prepStmtCacheSize: 250
         prepStmtCacheSqlLimit: 2048
