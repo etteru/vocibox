@@ -1,0 +1,197 @@
+<div>
+
+    <h2>Expressions</h2>
+
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#saveExpressionModal" ng-click="clear()">
+        <span class="glyphicon glyphicon-flash"></span> Create a new Expression
+    </button>
+    <div class="modal fade" id="saveExpressionModal" tabindex="-1" role="dialog" aria-labelledby="myExpressionLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="form" role="form" novalidate
+                      class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
+                      ng-submit="create()">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" id="myExpressionLabel">Create or edit a Expression</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>ID</label>
+                            <input type="text" class="form-control" name="id"
+                                   ng-model="expression.id" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Expression</label>
+                            <input type="text" class="form-control"
+                                   ng-model="expression.expression">
+                        </div>
+                        <div class="form-group">
+                            <label>Translation</label>
+                            <input type="text" class="form-control"
+                                   ng-model="expression.translation">
+                        </div>
+                        <div class="form-group">
+                            <label>Masculine</label>
+                            <input type="checkbox" class="form-control"
+                                   ng-model="expression.masculine">
+                        </div>
+                        <div class="form-group">
+                            <label>Feminine</label>
+                            <input type="checkbox" class="form-control"
+                                   ng-model="expression.feminine">
+                        </div>
+                        <div class="form-group">
+                            <label>Singular</label>
+                            <input type="checkbox" class="form-control"
+                                   ng-model="expression.singular">
+                        </div>
+                        <div class="form-group">
+                            <label>Plural</label>
+                            <input type="checkbox" class="form-control"
+                                   ng-model="expression.plural">
+                        </div>
+                        <div class="form-group">
+                            <label>Example</label>
+                            <input type="text" class="form-control"
+                                   ng-model="expression.example">
+                        </div>
+                        <div class="form-group">
+                            <label>Definition</label>
+                            <input type="text" class="form-control"
+                                   ng-model="expression.definition">
+                        </div>
+                        <div class="form-group">
+                            <label>Opposite</label>
+                            <input type="text" class="form-control"
+                                   ng-model="expression.opposite">
+                        </div>
+                        <div class="form-group">
+                            <label>Comment</label>
+                            <input type="text" class="form-control"
+                                   ng-model="expression.comment">
+                        </div>
+                        <div class="form-group">
+                            <label>Pronunciation</label>
+                            <input type="text" class="form-control"
+                                   ng-model="expression.pronunciation">
+                        </div>
+                        <div class="form-group">
+                            <label>Image</label>
+                            <input type="checkbox" class="form-control"
+                                   ng-model="expression.image">
+                        </div>
+                        <div class="form-group">
+                            <label>Latitude</label>
+                            <input type="text" class="form-control"
+                                   ng-model="expression.latitude">
+                        </div>
+                        <div class="form-group">
+                            <label>Longitude</label>
+                            <input type="text" class="form-control"
+                                   ng-model="expression.longitude">
+                        </div>
+                        <div class="form-group">
+                            <label>Priority</label>
+                            <input type="number" class="form-control"
+                                   ng-model="expression.priority">
+                        </div>
+                        <div class="form-group">
+                            <label>Marked</label>
+                            <input type="checkbox" class="form-control"
+                                   ng-model="expression.marked">
+                        </div>
+                        <div class="form-group">
+                            <label>Created</label>
+                            <input type="datetime-local" class="form-control"
+                                   ng-model="expression.created">
+                        </div>
+                        <div class="form-group">
+                            <label>Modified</label>
+                            <input type="datetime-local" class="form-control"
+                                   ng-model="expression.modified">
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                        </button>
+                        <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-save"></span> Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Expression</th>
+                    <th>Translation</th>
+                    <th>Masculine</th>
+                    <th>Feminine</th>
+                    <th>Singular</th>
+                    <th>Plural</th>
+                    <th>Example</th>
+                    <th>Definition</th>
+                    <th>Opposite</th>
+                    <th>Comment</th>
+                    <th>Pronunciation</th>
+                    <th>Image</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>Priority</th>
+                    <th>Marked</th>
+                    <th>Created</th>
+                    <th>Modified</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="expression in expressions">
+                    <td>{{expression.id}}</td>
+                    <td>{{expression.expression}}</td>
+                    <td>{{expression.translation}}</td>
+                    <td>{{expression.masculine}}</td>
+                    <td>{{expression.feminine}}</td>
+                    <td>{{expression.singular}}</td>
+                    <td>{{expression.plural}}</td>
+                    <td>{{expression.example}}</td>
+                    <td>{{expression.definition}}</td>
+                    <td>{{expression.opposite}}</td>
+                    <td>{{expression.comment}}</td>
+                    <td>{{expression.pronunciation}}</td>
+                    <td>{{expression.image}}</td>
+                    <td>{{expression.latitude}}</td>
+                    <td>{{expression.longitude}}</td>
+                    <td>{{expression.priority}}</td>
+                    <td>{{expression.marked}}</td>
+                    <td>{{expression.created}}</td>
+                    <td>{{expression.modified}}</td>
+                    <td>
+                        <button type="submit"
+                                ng-click="update(expression.id)"
+                                class="btn btn-default">
+                            <span class="glyphicon glyphicon-pencil"></span> Edit
+                        </button>
+                        <button type="submit"
+                                ng-click="delete(expression.id)"
+                                class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span> Delete
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -50,6 +50,7 @@
                                 </span>
                             </a>
                             <ul class="dropdown-menu" ng-controller="MenuController">
+                                <li ng-switch-when="true"><a href="#/expression"><span class="glyphicon glyphicon-asterisk"></span>&nbsp;expression</a></li>
                                 <!-- JHipster will add entities to the menu here -->
                             </ul>
                         </li>
@@ -172,6 +173,9 @@
         <script src="bower_components/bootstrap-sass/vendor/assets/javascripts/bootstrap/scrollspy.js"></script>
         <script src="bower_components/bootstrap-sass/vendor/assets/javascripts/bootstrap/collapse.js"></script>
         <script src="bower_components/bootstrap-sass/vendor/assets/javascripts/bootstrap/tab.js"></script>
+        <script src="scripts/expression/router_expression.js"></script>
+        <script src="scripts/expression/controller_expression.js"></script>
+        <script src="scripts/expression/service_expression.js"></script>
         <!-- endbuild -->
 </body>
 </html>
