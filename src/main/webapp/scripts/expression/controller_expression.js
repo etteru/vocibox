@@ -18,10 +18,17 @@ vociboxApp.controller('ExpressionController', function ($scope, resolvedExpressi
             $('#saveExpressionModal').modal('show');
         };
 
-        $scope.delete = function (id) {
-            Expression.delete({id: id},
+        $scope.showDeleteModal = function (id) {
+            $scope.expression = Expression.get({id: id});
+            $('#deleteExpressionModal').modal('show');
+        };
+
+        $scope.delete = function () {
+            Expression.delete({id: $scope.expression.id},
                 function () {
                     $scope.expressions = Expression.query();
+                    $('#deleteExpressionModal').modal('hide');
+                    $scope.clear();
                 });
         };
 

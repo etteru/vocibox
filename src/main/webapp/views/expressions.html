@@ -112,8 +112,6 @@
                             <input type="datetime-local" class="form-control"
                                    ng-model="expression.modified">
                         </div>
-
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
@@ -124,6 +122,27 @@
                         </button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="deleteExpressionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Confirmation</h4>
+                </div>
+                <div class="modal-body">
+                    Delete expression "{{expression.expression}}"?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                        <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                    </button>
+                    <button type="submit" class="btn btn-danger" ng-click="delete()">
+                        <span class="glyphicon glyphicon-remove-circle"></span> Delete
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -166,7 +185,7 @@
                             <span class="glyphicon glyphicon-pencil"></span> Edit
                         </button>
                         <button type="submit"
-                                ng-click="delete(expression.id)"
+                                ng-click="showDeleteModal(expression.id)"
                                 class="btn btn-danger">
                             <span class="glyphicon glyphicon-remove-circle"></span> Delete
                         </button>
