@@ -2,14 +2,18 @@
 
 vociboxApp.controller('ExpressionController', function ($scope, resolvedExpression, Expression) {
 
-        $scope.expressions = resolvedExpression;
+        $scope.expressions = resolvedExpression.content;
 
         $scope.create = function () {
             Expression.save($scope.expression,
                 function () {
-                    $scope.expressions = Expression.query();
+                    Expression.query({}, function(page) {
+                        $scope.expressions = page.content;
+                        $scope.totalItems = page.totalElements;
+                    });
                     $('#saveExpressionModal').modal('hide');
                     $scope.clear();
+                    $scope.currentPage = 1;
                 });
         };
 
@@ -26,7 +30,10 @@ vociboxApp.controller('ExpressionController', function ($scope, resolvedExpressi
         $scope.delete = function () {
             Expression.delete({id: $scope.expression.id},
                 function () {
-                    $scope.expressions = Expression.query();
+                    Expression.query({page: $scope.currentPage - 1}, function(page) {
+                        $scope.expressions = page.content;
+                        $scope.totalItems = page.totalElements;
+                    });
                     $('#deleteExpressionModal').modal('hide');
                     $scope.clear();
                 });
@@ -35,4 +42,15 @@ vociboxApp.controller('ExpressionController', function ($scope, resolvedExpressi
         $scope.clear = function () {
             $scope.expression = {expression: null, translation: null, masculine: null, feminine: null, singular: null, plural: null, example: null, definition: null, opposite: null, comment: null, pronunciation: null, image: null, latitude: null, longitude: null, priority: null, marked: null, created: null, modified: null, id: null};
         };
+
+        $scope.currentPage = 1;
+        $scope.totalItems = resolvedExpression.totalElements;
+
+        $scope.pageChanged = function() {
+            Expression.query({page: $scope.currentPage - 1}, function(page) {
+              $scope.expressions = page.content;
+              $scope.totalItems = page.totalElements;
+            });
+        };
     });
+

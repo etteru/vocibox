@@ -20,12 +20,6 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label>ID</label>
-                            <input type="text" class="form-control" name="id"
-                                   ng-model="expression.id" readonly>
-                        </div>
-
-                        <div class="form-group">
                             <label>Expression</label>
                             <input type="text" class="form-control" ng-model="expression.expression" required>
                         </div>
@@ -151,7 +145,6 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Expression</th>
                     <th>Translation</th>
                     <th>Masculine</th>
@@ -167,7 +160,6 @@
             </thead>
             <tbody>
                 <tr ng-repeat="expression in expressions">
-                    <td>{{expression.id}}</td>
                     <td>{{expression.expression}}</td>
                     <td>{{expression.translation}}</td>
                     <td>{{expression.masculine}}</td>
@@ -193,5 +185,9 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+    <div>
+        <pagination ng-change="pageChanged()" ng-model="currentPage" total-items="totalItems" items-per-page="10"
+                    max-size="5" boundary-links="true" rotate="false"></pagination>
     </div>
 </div>
