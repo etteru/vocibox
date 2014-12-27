@@ -1,6 +1,10 @@
 package vocibox.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import vocibox.domain.Expression;
 import vocibox.repository.ExpressionRepository;
 import org.slf4j.Logger;
@@ -20,6 +24,9 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/app")
 public class ExpressionResource {
+
+    private static final String DEFAULT_PAGE_INDEX = "0";
+    private static final String DEFAULT_PAGE_SIZE = "20";
 
     private final Logger log = LoggerFactory.getLogger(ExpressionResource.class);
 
@@ -45,9 +52,14 @@ public class ExpressionResource {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public List<Expression> getAll() {
+    public Page<Expression> getAll(@RequestParam(required = false, defaultValue = DEFAULT_PAGE_INDEX) Integer page,
+                                   @RequestParam(required = false, defaultValue = DEFAULT_PAGE_SIZE) Integer size) {
         log.debug("REST request to get all Expressions");
-        return expressionRepository.findAll();
+        return expressionRepository.findAll(createPageable(page, size));
+    }
+
+    private Pageable createPageable(int page, int size) {
+        return new PageRequest(page, size, new Sort(Sort.Direction.DESC, "created"));
     }
 
     /**

@@ -42,10 +42,10 @@ public class ExpressionResourceTest {
 
     private static final String DEFAULT_EXPRESSION = "SAMPLE_TEXT";
     private static final String UPDATED_EXPRESSION = "UPDATED_TEXT";
-    
+
     private static final String DEFAULT_TRANSLATION = "SAMPLE_TEXT";
     private static final String UPDATED_TRANSLATION = "UPDATED_TEXT";
-    
+
     private static final Boolean DEFAULT_MASCULINE = false;
     private static final Boolean UPDATED_MASCULINE = true;
     private static final Boolean DEFAULT_FEMININE = false;
@@ -56,40 +56,40 @@ public class ExpressionResourceTest {
     private static final Boolean UPDATED_PLURAL = true;
     private static final String DEFAULT_EXAMPLE = "SAMPLE_TEXT";
     private static final String UPDATED_EXAMPLE = "UPDATED_TEXT";
-    
+
     private static final String DEFAULT_DEFINITION = "SAMPLE_TEXT";
     private static final String UPDATED_DEFINITION = "UPDATED_TEXT";
-    
+
     private static final String DEFAULT_OPPOSITE = "SAMPLE_TEXT";
     private static final String UPDATED_OPPOSITE = "UPDATED_TEXT";
-    
+
     private static final String DEFAULT_COMMENT = "SAMPLE_TEXT";
     private static final String UPDATED_COMMENT = "UPDATED_TEXT";
-    
+
     private static final String DEFAULT_PRONUNCIATION = "SAMPLE_TEXT";
     private static final String UPDATED_PRONUNCIATION = "UPDATED_TEXT";
-    
+
     private static final Boolean DEFAULT_IMAGE = false;
     private static final Boolean UPDATED_IMAGE = true;
     private static final BigDecimal DEFAULT_LATITUDE = BigDecimal.ZERO;
     private static final BigDecimal UPDATED_LATITUDE = BigDecimal.ONE;
-    
+
     private static final BigDecimal DEFAULT_LONGITUDE = BigDecimal.ZERO;
     private static final BigDecimal UPDATED_LONGITUDE = BigDecimal.ONE;
-    
+
     private static final Integer DEFAULT_PRIORITY = 0;
     private static final Integer UPDATED_PRIORITY = 1;
-    
+
     private static final Boolean DEFAULT_MARKED = false;
     private static final Boolean UPDATED_MARKED = true;
    private static final DateTime DEFAULT_CREATED = new DateTime(0L);
    private static final DateTime UPDATED_CREATED = new DateTime().withMillisOfSecond(0);
    private static final String DEFAULT_CREATED_STR = dateTimeFormatter.print(DEFAULT_CREATED);
-    
+
    private static final DateTime DEFAULT_MODIFIED = new DateTime(0L);
    private static final DateTime UPDATED_MODIFIED = new DateTime().withMillisOfSecond(0);
    private static final String DEFAULT_MODIFIED_STR = dateTimeFormatter.print(DEFAULT_MODIFIED);
-    
+
 
     @Inject
     private ExpressionRepository expressionRepository;
@@ -174,7 +174,6 @@ public class ExpressionResourceTest {
         // Get all the expressions
         restExpressionMockMvc.perform(get("/app/rest/expressions"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[0].id").value(expression.getId().intValue()))
                 .andExpect(jsonPath("$.[0].expression").value(DEFAULT_EXPRESSION.toString()))

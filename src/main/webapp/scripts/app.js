@@ -3,7 +3,7 @@
 /* App Module */
 
 var vociboxApp = angular.module('vociboxApp', ['http-auth-interceptor', 'tmh.dynamicLocale',
-    'ngResource', 'ngRoute', 'ngCookies', 'vociboxAppUtils', 'pascalprecht.translate', 'truncate', 'ngCacheBuster']);
+    'ngResource', 'ngRoute', 'ngCookies', 'vociboxAppUtils', 'pascalprecht.translate', 'truncate', 'ngCacheBuster', 'ui.bootstrap']);
 
 vociboxApp
     .config(function ($routeProvider, $httpProvider, $translateProvider, tmhDynamicLocaleProvider, httpRequestInterceptorCacheBusterProvider, USER_ROLES) {
