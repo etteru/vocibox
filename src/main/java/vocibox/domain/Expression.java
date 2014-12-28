@@ -77,14 +77,14 @@ public class Expression implements Serializable {
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonSerialize(using = CustomDateTimeSerializer.class)
     @JsonDeserialize(using = CustomDateTimeDeserializer.class)
-    @Column(name = "created", nullable = false)
-    private DateTime created;
+    @Column(name = "created_date", nullable = false)
+    private DateTime createdDate;
 
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonSerialize(using = CustomDateTimeSerializer.class)
     @JsonDeserialize(using = CustomDateTimeDeserializer.class)
-    @Column(name = "modified", nullable = false)
-    private DateTime modified;
+    @Column(name = "last_modified_date", nullable = false)
+    private DateTime lastModifiedDate;
 
     public Long getId() {
         return id;
@@ -222,20 +222,20 @@ public class Expression implements Serializable {
         this.marked = marked;
     }
 
-    public DateTime getCreated() {
-        return created;
+    public DateTime getCreatedDate() {
+        return createdDate;
     }
 
-    public void setCreated(DateTime created) {
-        this.created = created;
+    public void setCreatedDate(DateTime createdDate) {
+        this.createdDate = createdDate;
     }
 
-    public DateTime getModified() {
-        return modified;
+    public DateTime getLastModifiedDate() {
+        return lastModifiedDate;
     }
 
-    public void setModified(DateTime modified) {
-        this.modified = modified;
+    public void setLastModifiedDate(DateTime lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
     }
 
     @Override
@@ -279,8 +279,8 @@ public class Expression implements Serializable {
                 ", longitude='" + longitude + "'" +
                 ", priority='" + priority + "'" +
                 ", marked='" + marked + "'" +
-                ", created='" + created + "'" +
-                ", modified='" + modified + "'" +
+                ", createdDate='" + createdDate + "'" +
+                ", lastModifiedDate='" + lastModifiedDate + "'" +
                 '}';
     }
 }

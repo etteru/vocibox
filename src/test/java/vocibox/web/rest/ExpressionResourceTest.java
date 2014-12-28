@@ -82,13 +82,14 @@ public class ExpressionResourceTest {
 
     private static final Boolean DEFAULT_MARKED = false;
     private static final Boolean UPDATED_MARKED = true;
-   private static final DateTime DEFAULT_CREATED = new DateTime(0L);
-   private static final DateTime UPDATED_CREATED = new DateTime().withMillisOfSecond(0);
-   private static final String DEFAULT_CREATED_STR = dateTimeFormatter.print(DEFAULT_CREATED);
 
-   private static final DateTime DEFAULT_MODIFIED = new DateTime(0L);
-   private static final DateTime UPDATED_MODIFIED = new DateTime().withMillisOfSecond(0);
-   private static final String DEFAULT_MODIFIED_STR = dateTimeFormatter.print(DEFAULT_MODIFIED);
+   private static final DateTime DEFAULT_CREATED_DATE = new DateTime(0L);
+   private static final DateTime UPDATED_CREATED_DATE = new DateTime().withMillisOfSecond(0);
+   private static final String DEFAULT_CREATED_DATE_STR = dateTimeFormatter.print(DEFAULT_CREATED_DATE);
+
+   private static final DateTime DEFAULT_LAST_MODIFIED_DATE = new DateTime(0L);
+   private static final DateTime UPDATED_LAST_MODIFIED_DATE = new DateTime().withMillisOfSecond(0);
+   private static final String DEFAULT_MODIFIED_STR = dateTimeFormatter.print(DEFAULT_LAST_MODIFIED_DATE);
 
 
     @Inject
@@ -125,8 +126,8 @@ public class ExpressionResourceTest {
         expression.setLongitude(DEFAULT_LONGITUDE);
         expression.setPriority(DEFAULT_PRIORITY);
         expression.setMarked(DEFAULT_MARKED);
-        expression.setCreated(DEFAULT_CREATED);
-        expression.setModified(DEFAULT_MODIFIED);
+        expression.setCreatedDate(DEFAULT_CREATED_DATE);
+        expression.setLastModifiedDate(DEFAULT_LAST_MODIFIED_DATE);
     }
 
     @Test
@@ -161,8 +162,8 @@ public class ExpressionResourceTest {
         assertThat(testExpression.getLongitude()).isEqualTo(DEFAULT_LONGITUDE);
         assertThat(testExpression.getPriority()).isEqualTo(DEFAULT_PRIORITY);
         assertThat(testExpression.getMarked()).isEqualTo(DEFAULT_MARKED);
-        assertThat(testExpression.getCreated()).isEqualTo(DEFAULT_CREATED);
-        assertThat(testExpression.getModified()).isEqualTo(DEFAULT_MODIFIED);
+        assertThat(testExpression.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
+        assertThat(testExpression.getLastModifiedDate()).isEqualTo(DEFAULT_LAST_MODIFIED_DATE);
     }
 
     @Test
@@ -192,8 +193,8 @@ public class ExpressionResourceTest {
                 .andExpect(jsonPath("$.content.[0].longitude").value(DEFAULT_LONGITUDE.intValue()))
                 .andExpect(jsonPath("$.content.[0].priority").value(DEFAULT_PRIORITY))
                 .andExpect(jsonPath("$.content.[0].marked").value(DEFAULT_MARKED.booleanValue()))
-                .andExpect(jsonPath("$.content.[0].created").value(DEFAULT_CREATED_STR))
-                .andExpect(jsonPath("$.content.[0].modified").value(DEFAULT_MODIFIED_STR));
+                .andExpect(jsonPath("$.content.[0].createdDate").value(DEFAULT_CREATED_DATE_STR))
+                .andExpect(jsonPath("$.content.[0].lastModifiedDate").value(DEFAULT_MODIFIED_STR));
     }
 
     @Test
@@ -223,8 +224,8 @@ public class ExpressionResourceTest {
             .andExpect(jsonPath("$.longitude").value(DEFAULT_LONGITUDE.intValue()))
             .andExpect(jsonPath("$.priority").value(DEFAULT_PRIORITY))
             .andExpect(jsonPath("$.marked").value(DEFAULT_MARKED.booleanValue()))
-            .andExpect(jsonPath("$.created").value(DEFAULT_CREATED_STR))
-            .andExpect(jsonPath("$.modified").value(DEFAULT_MODIFIED_STR));
+            .andExpect(jsonPath("$.createdDate").value(DEFAULT_CREATED_DATE_STR))
+            .andExpect(jsonPath("$.lastModifiedDate").value(DEFAULT_MODIFIED_STR));
     }
 
     @Test
@@ -258,8 +259,8 @@ public class ExpressionResourceTest {
         expression.setLongitude(UPDATED_LONGITUDE);
         expression.setPriority(UPDATED_PRIORITY);
         expression.setMarked(UPDATED_MARKED);
-        expression.setCreated(UPDATED_CREATED);
-        expression.setModified(UPDATED_MODIFIED);
+        expression.setCreatedDate(UPDATED_CREATED_DATE);
+        expression.setLastModifiedDate(UPDATED_LAST_MODIFIED_DATE);
         restExpressionMockMvc.perform(post("/app/rest/expressions")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(expression)))
@@ -285,8 +286,8 @@ public class ExpressionResourceTest {
         assertThat(testExpression.getLongitude()).isEqualTo(UPDATED_LONGITUDE);
         assertThat(testExpression.getPriority()).isEqualTo(UPDATED_PRIORITY);
         assertThat(testExpression.getMarked()).isEqualTo(UPDATED_MARKED);
-        assertThat(testExpression.getCreated()).isEqualTo(UPDATED_CREATED);
-        assertThat(testExpression.getModified()).isEqualTo(UPDATED_MODIFIED);
+        assertThat(testExpression.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
+        assertThat(testExpression.getLastModifiedDate()).isEqualTo(UPDATED_LAST_MODIFIED_DATE);
     }
 
     @Test

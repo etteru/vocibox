@@ -59,7 +59,7 @@ public class ExpressionResource {
     }
 
     private Pageable createPageable(int page, int size) {
-        return new PageRequest(page, size, new Sort(Sort.Direction.DESC, "created"));
+        return new PageRequest(page, size, new Sort(Sort.Direction.DESC, "createdDate"));
     }
 
     /**
