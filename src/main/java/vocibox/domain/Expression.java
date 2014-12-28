@@ -13,6 +13,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A Expression.
@@ -73,6 +75,10 @@ public class Expression implements Serializable {
 
     @Column(name = "marked", nullable = false)
     private Boolean marked;
+
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Tag> tags = new HashSet<>();
 
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonSerialize(using = CustomDateTimeSerializer.class)
@@ -220,6 +226,14 @@ public class Expression implements Serializable {
 
     public void setMarked(Boolean marked) {
         this.marked = marked;
+    }
+
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
     }
 
     public DateTime getCreatedDate() {

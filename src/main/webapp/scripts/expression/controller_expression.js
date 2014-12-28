@@ -1,8 +1,9 @@
 'use strict';
 
-vociboxApp.controller('ExpressionController', function ($scope, resolvedExpression, Expression) {
+vociboxApp.controller('ExpressionController', function ($scope, resolvedExpression, Expression, resolvedTag) {
 
         $scope.expressions = resolvedExpression.content;
+        $scope.tags = resolvedTag;
 
         $scope.create = function () {
             Expression.save($scope.expression,

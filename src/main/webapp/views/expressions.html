@@ -96,6 +96,13 @@
                             <label>Marked</label>
                             <input type="checkbox" class="form-control" ng-model="expression.marked">
                         </div>
+                        <div class="form-group">
+                            <label>Tags</label>
+                            <select class="form-control" data-ng-attr-size="{{ tags.length }}" multiple
+                                    ng-model="expression.tags"
+                                    ng-options="tag as tag.name for tag in tags track by tag.id">
+                            </select>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">

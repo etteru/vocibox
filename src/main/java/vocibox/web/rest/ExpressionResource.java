@@ -66,12 +66,12 @@ public class ExpressionResource {
      * GET  /rest/expressions/:id -> get the "id" expression.
      */
     @RequestMapping(value = "/rest/expressions/{id}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Expression> get(@PathVariable Long id) {
         log.debug("REST request to get Expression : {}", id);
-        return Optional.ofNullable(expressionRepository.findOne(id))
+        return Optional.ofNullable(expressionRepository.findOneWithEagerRelationships(id))
             .map(expression -> new ResponseEntity<>(
                 expression,
                 HttpStatus.OK))

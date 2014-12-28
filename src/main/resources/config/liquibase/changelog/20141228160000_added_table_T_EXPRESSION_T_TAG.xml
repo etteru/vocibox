@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <property name="now" value="now()" dbms="mysql,h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+
+    <changeSet id="20141228160000" author="etteru">
+        <createTable tableName="T_EXPRESSION_T_TAG">
+            <column name="tags_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="expressions_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="tags_id"
+                                 baseTableName="T_EXPRESSION_T_TAG"
+                                 constraintName="fk_expression_tag_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="T_TAG"/>
+        <addForeignKeyConstraint baseColumnNames="expressions_id"
+                                 baseTableName="T_EXPRESSION_T_TAG"
+                                 constraintName="fk_tag_expression_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="T_EXPRESSION"/>
+
+    </changeSet>
+</databaseChangeLog>

@@ -3,15 +3,15 @@
 vociboxApp
     .config(function ($routeProvider, $httpProvider, $translateProvider, USER_ROLES) {
             $routeProvider
-                .when('/expression', {
-                    templateUrl: 'views/expressions.html',
-                    controller: 'ExpressionController',
+                .when('/tag', {
+                    templateUrl: 'views/tags.html',
+                    controller: 'TagController',
                     resolve:{
-                        resolvedExpression: ['Expression', function (Expression) {
-                            return Expression.query().$promise;
-                        }],
                         resolvedTag: ['Tag', function (Tag) {
                             return Tag.query().$promise;
+                        }],
+                        resolvedExpression: ['Expression', function (Expression) {
+                            return Expression.query().$promise;
                         }]
                     },
                     access: {
