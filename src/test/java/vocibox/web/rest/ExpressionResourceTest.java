@@ -77,8 +77,8 @@ public class ExpressionResourceTest {
     private static final BigDecimal DEFAULT_LONGITUDE = BigDecimal.ZERO;
     private static final BigDecimal UPDATED_LONGITUDE = BigDecimal.ONE;
 
-    private static final Integer DEFAULT_PRIORITY = 0;
-    private static final Integer UPDATED_PRIORITY = 1;
+    private static final Integer DEFAULT_PRIORITY = 1;
+    private static final Integer UPDATED_PRIORITY = 2;
 
     private static final Boolean DEFAULT_MARKED = false;
     private static final Boolean UPDATED_MARKED = true;
@@ -208,7 +208,7 @@ public class ExpressionResourceTest {
         restExpressionMockMvc.perform(get("/app/rest/expressions?size=2&page=0"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-            .andExpect(jsonPath("$.totalElements").value(2));
+            .andExpect(jsonPath("$.numberOfElements").value(2));
     }
 
     @Test
@@ -248,6 +248,19 @@ public class ExpressionResourceTest {
 
         // Get all the expressions
         restExpressionMockMvc.perform(get("/app/rest/expressions?marked=false"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$.totalElements").value(2));
+    }
+
+    @Test
+    @Transactional
+    public void getAllExpressionsPriorities() throws Exception {
+        // Initialize the database
+        initDatabase();
+
+        // Get all the expressions
+        restExpressionMockMvc.perform(get("/app/rest/expressions?priorities=1,2"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.totalElements").value(2));

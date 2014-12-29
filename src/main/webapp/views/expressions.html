@@ -2,26 +2,40 @@
 
     <h2>Expressions</h2>
 
-    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#saveExpressionModal" ng-click="clear()">
+    <button class="btn btn-primary" data-toggle="modal" data-target="#saveExpressionModal" ng-click="clear()">
         <span class="glyphicon glyphicon-flash"></span> Create a new Expression
     </button>
-    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#saveExpressionModal" ng-click="random()">
-        <span class="glyphicon glyphicon-flash"></span> Random
+    <button class="btn btn-primary" data-toggle="modal" data-target="#saveExpressionModal" ng-click="random()">
+        <span class="glyphicon glyphicon-random"></span> Show random Expression
     </button>
 
-    <form name="filterForm" ng-submit="filterForm.$valid && filter()" novalidate>
-        <h4>Filter</h4>
-        <fieldset class="form-group">
-            <select class="form-control" title="marked" ng-model="filter.marked">
-                <option value=""></option>
-                <option value="false">Not marked</option>
-                <option value="true">Marked</option>
-            </select>
-        </fieldset>
-        <fieldset class="form-group">
-            <input type="submit" value="Filter" class="btn btn-primary pull-right" value="Submit Filter"/>
-        </fieldset>
-    </form>
+    <button class="btn btn-default" ng-click="isCollapsed = !isCollapsed" ng-show="isCollapsed">
+        <span class="glyphicon glyphicon-expand"></span> Show search filter
+    </button>
+    <button class="btn btn-default" ng-click="isCollapsed = !isCollapsed" ng-hide="isCollapsed">
+        <span class="glyphicon glyphicon-collapse-down"></span> Hide search filter
+    </button>
+    <div ng-init="isCollapsed = true" collapse="isCollapsed">
+        <form name="filterForm" ng-submit="filterForm.$valid && search()" novalidate>
+            <h4>Filter</h4>
+            <fieldset class="form-group">
+                <select class="form-control" ng-options="priority for priority in [1,2,3,4,5]" title="priorities" ng-model="filter.priorities" multiple data-ng-attr-size="{{ 5 }}">
+                </select>
+            </fieldset>
+            <fieldset class="form-group">
+                <select class="form-control" title="marked" ng-model="filter.marked">
+                    <option value=""></option>
+                    <option value="false">Not marked</option>
+                    <option value="true">Marked</option>
+                </select>
+            </fieldset>
+            <fieldset class="form-group">
+                <button type="submit" ng-disabled="filterForm.$invalid" class="btn btn-primary pull-right">
+                    <span class="glyphicon glyphicon-search"></span> Search
+                </button>
+            </fieldset>
+        </form>
+    </div>
 
     <div class="modal fade" id="saveExpressionModal" tabindex="-1" role="dialog" aria-labelledby="myExpressionLabel"
          aria-hidden="true">

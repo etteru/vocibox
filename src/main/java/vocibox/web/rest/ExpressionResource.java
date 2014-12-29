@@ -15,8 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * REST controller for managing Expression.
@@ -27,6 +26,7 @@ public class ExpressionResource {
 
     private static final String DEFAULT_PAGE_INDEX = "0";
     private static final String DEFAULT_PAGE_SIZE = "20";
+    private static final String DEFAULT_PRIORITIES = "1,2,3,4,5";
 
     private final Logger log = LoggerFactory.getLogger(ExpressionResource.class);
 
@@ -53,11 +53,12 @@ public class ExpressionResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public Page<Expression> getAll(
+            @RequestParam(required = false, defaultValue = DEFAULT_PRIORITIES) Set<Integer> priorities,
             @RequestParam(required = false) Boolean marked,
             @RequestParam(required = false, defaultValue = DEFAULT_PAGE_INDEX) Integer page,
             @RequestParam(required = false, defaultValue = DEFAULT_PAGE_SIZE) Integer size) {
         log.debug("REST request to get all Expressions");
-        return expressionRepository.search(marked, createPageable(page, size));
+        return expressionRepository.search(priorities, marked, createPageable(page, size));
     }
 
     private Pageable createPageable(int page, int size) {

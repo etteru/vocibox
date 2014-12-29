@@ -4,9 +4,10 @@ vociboxApp.controller('ExpressionController', function ($scope, resolvedExpressi
 
         $scope.expressions = resolvedExpression.content;
         $scope.tags = resolvedTag;
+        $scope.filter = {priorities: [1,2,3,4,5], marked: null};
 
-        $scope.filter = function () {
-            Expression.query({marked: $scope.filter.marked}, function(page) {
+        $scope.search = function () {
+            Expression.query({priorities: $scope.filter.priorities, marked: $scope.filter.marked}, function(page) {
                 $scope.expressions = page.content;
                 $scope.totalItems = page.totalElements;
             });
@@ -57,8 +58,7 @@ vociboxApp.controller('ExpressionController', function ($scope, resolvedExpressi
         };
 
         $scope.random = function () {
-            alert($scope.filter.marked);
-            Expression.query({size:1, page: randomIntFromInterval(0, $scope.totalItems - 1), marked: $scope.filter.marked}, function(page) {
+            Expression.query({size:1, page: randomIntFromInterval(0, $scope.totalItems - 1), priorities: $scope.filter.priorities, marked: $scope.filter.marked}, function(page) {
                 $scope.expression = page.content[0];
             });
         };
