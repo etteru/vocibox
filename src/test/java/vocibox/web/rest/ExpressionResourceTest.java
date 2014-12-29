@@ -19,11 +19,15 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import vocibox.Application;
 import vocibox.domain.Expression;
+import vocibox.domain.Tag;
 import vocibox.repository.ExpressionRepository;
+import vocibox.repository.TagRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -94,6 +98,9 @@ public class ExpressionResourceTest {
 
     @Inject
     private ExpressionRepository expressionRepository;
+
+    @Inject
+    private TagRepository tagRepository;
 
     private MockMvc restExpressionMockMvc;
 
@@ -267,12 +274,19 @@ public class ExpressionResourceTest {
     }
 
     private void initDatabase() {
-        expressionRepository.saveAndFlush(createExpressionMaison());
-        expressionRepository.saveAndFlush(createExpressionAller());
-        expressionRepository.saveAndFlush(createExpressionRouge());
+        Tag tagSubstantif = createTagSubstantif();
+        tagRepository.saveAndFlush(tagSubstantif);
+        Tag tagVerbe = createTagVerbe();
+        tagRepository.saveAndFlush(tagVerbe);
+        Tag tagAdjectif = createTagAdjectif();
+        tagRepository.saveAndFlush(tagAdjectif);
+
+        expressionRepository.saveAndFlush(createExpressionMaison(tagSubstantif));
+        expressionRepository.saveAndFlush(createExpressionAller(tagVerbe));
+        expressionRepository.saveAndFlush(createExpressionRouge(tagAdjectif));
     }
 
-    private Expression createExpressionMaison() {
+    private Expression createExpressionMaison(Tag tagSubstantif) {
         Expression result = new Expression();
         result.setExpression("maison");
         result.setTranslation("Haus");
@@ -290,12 +304,13 @@ public class ExpressionResourceTest {
         result.setLongitude(null);
         result.setPriority(1);
         result.setMarked(true);
+        result.setTags(new HashSet<>(Arrays.asList(tagSubstantif)));
         result.setCreatedDate(new DateTime());
         result.setLastModifiedDate(null);
         return result;
     }
 
-    private Expression createExpressionAller() {
+    private Expression createExpressionAller(Tag tagVerbe) {
         Expression result = new Expression();
         result.setExpression("aller");
         result.setTranslation("gehen");
@@ -313,12 +328,13 @@ public class ExpressionResourceTest {
         result.setLongitude(null);
         result.setPriority(2);
         result.setMarked(false);
+        result.setTags(new HashSet<>(Arrays.asList(tagVerbe)));
         result.setCreatedDate(new DateTime());
         result.setLastModifiedDate(null);
         return result;
     }
 
-    private Expression createExpressionRouge() {
+    private Expression createExpressionRouge(Tag tagAdjectif) {
         Expression result = new Expression();
         result.setExpression("rouge");
         result.setTranslation("rot");
@@ -336,8 +352,27 @@ public class ExpressionResourceTest {
         result.setLongitude(null);
         result.setPriority(3);
         result.setMarked(false);
+        result.setTags(new HashSet<>(Arrays.asList(tagAdjectif)));
         result.setCreatedDate(new DateTime());
         result.setLastModifiedDate(null);
+        return result;
+    }
+
+    private Tag createTagSubstantif() {
+        Tag result = new Tag();
+        result.setName("substantif");
+        return result;
+    }
+
+    private Tag createTagVerbe() {
+        Tag result = new Tag();
+        result.setName("verbe");
+        return result;
+    }
+
+    private Tag createTagAdjectif() {
+        Tag result = new Tag();
+        result.setName("adjectif");
         return result;
     }
 
