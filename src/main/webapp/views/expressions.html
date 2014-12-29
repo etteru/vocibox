@@ -5,9 +5,12 @@
     <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#saveExpressionModal" ng-click="clear()">
         <span class="glyphicon glyphicon-flash"></span> Create a new Expression
     </button>
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#saveExpressionModal" ng-click="random()">
+        <span class="glyphicon glyphicon-flash"></span> Random
+    </button>
     <div class="modal fade" id="saveExpressionModal" tabindex="-1" role="dialog" aria-labelledby="myExpressionLabel"
          aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <form name="form" role="form" novalidate
                       class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
@@ -17,6 +20,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                                 ng-click="clear()">&times;</button>
                         <h4 class="modal-title" id="myExpressionLabel">Create or edit an Expression</h4>
+                        <input type="button" ng-click="random()" value="Random" />
                     </div>
                     <div class="modal-body">
                         <div class="form-group">

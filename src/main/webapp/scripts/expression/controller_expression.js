@@ -47,6 +47,16 @@ vociboxApp.controller('ExpressionController', function ($scope, resolvedExpressi
                 createdDate: null, lastModifiedDate: null, id: null};
         };
 
+        $scope.random = function () {
+            Expression.query({size:1, page: randomIntFromInterval(0, $scope.totalItems)}, function(page) {
+                $scope.expression = page.content[0];
+            });
+        };
+
+        function randomIntFromInterval(min, max){
+            return Math.floor(Math.random() * (max - min + 1) + min);
+        }
+
         $scope.currentPage = 1;
         $scope.totalItems = resolvedExpression.totalElements;
 
