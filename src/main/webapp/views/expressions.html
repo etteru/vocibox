@@ -8,6 +8,21 @@
     <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#saveExpressionModal" ng-click="random()">
         <span class="glyphicon glyphicon-flash"></span> Random
     </button>
+
+    <form name="filterForm" ng-submit="filterForm.$valid && filter()" novalidate>
+        <h4>Filter</h4>
+        <fieldset class="form-group">
+            <select class="form-control" title="marked" ng-model="filter.marked">
+                <option value=""></option>
+                <option value="false">Not marked</option>
+                <option value="true">Marked</option>
+            </select>
+        </fieldset>
+        <fieldset class="form-group">
+            <input type="submit" value="Filter" class="btn btn-primary pull-right" value="Submit Filter"/>
+        </fieldset>
+    </form>
+
     <div class="modal fade" id="saveExpressionModal" tabindex="-1" role="dialog" aria-labelledby="myExpressionLabel"
          aria-hidden="true">
         <div class="modal-dialog modal-lg">

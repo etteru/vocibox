@@ -5,6 +5,15 @@ vociboxApp.controller('ExpressionController', function ($scope, resolvedExpressi
         $scope.expressions = resolvedExpression.content;
         $scope.tags = resolvedTag;
 
+        $scope.filter = function () {
+            Expression.query({marked: $scope.filter.marked}, function(page) {
+                $scope.expressions = page.content;
+                $scope.totalItems = page.totalElements;
+            });
+            $scope.clear();
+            $scope.currentPage = 1;
+        };
+
         $scope.create = function () {
             Expression.save($scope.expression,
                 function () {
@@ -48,7 +57,8 @@ vociboxApp.controller('ExpressionController', function ($scope, resolvedExpressi
         };
 
         $scope.random = function () {
-            Expression.query({size:1, page: randomIntFromInterval(0, $scope.totalItems)}, function(page) {
+            alert($scope.filter.marked);
+            Expression.query({size:1, page: randomIntFromInterval(0, $scope.totalItems - 1), marked: $scope.filter.marked}, function(page) {
                 $scope.expression = page.content[0];
             });
         };

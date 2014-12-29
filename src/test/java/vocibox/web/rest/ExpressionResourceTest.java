@@ -174,27 +174,158 @@ public class ExpressionResourceTest {
 
         // Get all the expressions
         restExpressionMockMvc.perform(get("/app/rest/expressions"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.content.[0].id").value(expression.getId().intValue()))
-                .andExpect(jsonPath("$.content.[0].expression").value(DEFAULT_EXPRESSION.toString()))
-                .andExpect(jsonPath("$.content.[0].translation").value(DEFAULT_TRANSLATION.toString()))
-                .andExpect(jsonPath("$.content.[0].masculine").value(DEFAULT_MASCULINE.booleanValue()))
-                .andExpect(jsonPath("$.content.[0].feminine").value(DEFAULT_FEMININE.booleanValue()))
-                .andExpect(jsonPath("$.content.[0].singular").value(DEFAULT_SINGULAR.booleanValue()))
-                .andExpect(jsonPath("$.content.[0].plural").value(DEFAULT_PLURAL.booleanValue()))
-                .andExpect(jsonPath("$.content.[0].example").value(DEFAULT_EXAMPLE.toString()))
-                .andExpect(jsonPath("$.content.[0].definition").value(DEFAULT_DEFINITION.toString()))
-                .andExpect(jsonPath("$.content.[0].opposite").value(DEFAULT_OPPOSITE.toString()))
-                .andExpect(jsonPath("$.content.[0].comment").value(DEFAULT_COMMENT.toString()))
-                .andExpect(jsonPath("$.content.[0].pronunciation").value(DEFAULT_PRONUNCIATION.toString()))
-                .andExpect(jsonPath("$.content.[0].image").value(DEFAULT_IMAGE.booleanValue()))
-                .andExpect(jsonPath("$.content.[0].latitude").value(DEFAULT_LATITUDE.intValue()))
-                .andExpect(jsonPath("$.content.[0].longitude").value(DEFAULT_LONGITUDE.intValue()))
-                .andExpect(jsonPath("$.content.[0].priority").value(DEFAULT_PRIORITY))
-                .andExpect(jsonPath("$.content.[0].marked").value(DEFAULT_MARKED.booleanValue()))
-                .andExpect(jsonPath("$.content.[0].createdDate").value(DEFAULT_CREATED_DATE_STR))
-                .andExpect(jsonPath("$.content.[0].lastModifiedDate").value(DEFAULT_MODIFIED_STR));
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$.totalElements").value(1))
+            .andExpect(jsonPath("$.content.[0].id").value(expression.getId().intValue()))
+            .andExpect(jsonPath("$.content.[0].expression").value(DEFAULT_EXPRESSION.toString()))
+            .andExpect(jsonPath("$.content.[0].translation").value(DEFAULT_TRANSLATION.toString()))
+            .andExpect(jsonPath("$.content.[0].masculine").value(DEFAULT_MASCULINE.booleanValue()))
+            .andExpect(jsonPath("$.content.[0].feminine").value(DEFAULT_FEMININE.booleanValue()))
+            .andExpect(jsonPath("$.content.[0].singular").value(DEFAULT_SINGULAR.booleanValue()))
+            .andExpect(jsonPath("$.content.[0].plural").value(DEFAULT_PLURAL.booleanValue()))
+            .andExpect(jsonPath("$.content.[0].example").value(DEFAULT_EXAMPLE.toString()))
+            .andExpect(jsonPath("$.content.[0].definition").value(DEFAULT_DEFINITION.toString()))
+            .andExpect(jsonPath("$.content.[0].opposite").value(DEFAULT_OPPOSITE.toString()))
+            .andExpect(jsonPath("$.content.[0].comment").value(DEFAULT_COMMENT.toString()))
+            .andExpect(jsonPath("$.content.[0].pronunciation").value(DEFAULT_PRONUNCIATION.toString()))
+            .andExpect(jsonPath("$.content.[0].image").value(DEFAULT_IMAGE.booleanValue()))
+            .andExpect(jsonPath("$.content.[0].latitude").value(DEFAULT_LATITUDE.intValue()))
+            .andExpect(jsonPath("$.content.[0].longitude").value(DEFAULT_LONGITUDE.intValue()))
+            .andExpect(jsonPath("$.content.[0].priority").value(DEFAULT_PRIORITY))
+            .andExpect(jsonPath("$.content.[0].marked").value(DEFAULT_MARKED.booleanValue()))
+            .andExpect(jsonPath("$.content.[0].createdDate").value(DEFAULT_CREATED_DATE_STR))
+            .andExpect(jsonPath("$.content.[0].lastModifiedDate").value(DEFAULT_MODIFIED_STR));
+    }
+
+    @Test
+    @Transactional
+    public void getAllExpressionsPagination() throws Exception {
+        // Initialize the database
+        initDatabase();
+
+        // Get all the expressions
+        restExpressionMockMvc.perform(get("/app/rest/expressions?size=2&page=0"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$.totalElements").value(2));
+    }
+
+    @Test
+    @Transactional
+    public void getAllExpressionsSorting() throws Exception {
+        // Initialize the database
+        initDatabase();
+
+        // Get all the expressions
+        restExpressionMockMvc.perform(get("/app/rest/expressions"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$.totalElements").value(3))
+            .andExpect(jsonPath("$.content.[0].expression").value("rouge"))
+            .andExpect(jsonPath("$.content.[1].expression").value("aller"))
+            .andExpect(jsonPath("$.content.[2].expression").value("maison"));
+    }
+
+    @Test
+    @Transactional
+    public void getAllExpressionsMarked() throws Exception {
+        // Initialize the database
+        initDatabase();
+
+        // Get all the expressions
+        restExpressionMockMvc.perform(get("/app/rest/expressions?marked=true"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$.totalElements").value(1));
+    }
+
+    @Test
+    @Transactional
+    public void getAllExpressionsNotMarked() throws Exception {
+        // Initialize the database
+        initDatabase();
+
+        // Get all the expressions
+        restExpressionMockMvc.perform(get("/app/rest/expressions?marked=false"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$.totalElements").value(2));
+    }
+
+    private void initDatabase() {
+        expressionRepository.saveAndFlush(createExpressionMaison());
+        expressionRepository.saveAndFlush(createExpressionAller());
+        expressionRepository.saveAndFlush(createExpressionRouge());
+    }
+
+    private Expression createExpressionMaison() {
+        Expression result = new Expression();
+        result.setExpression("maison");
+        result.setTranslation("Haus");
+        result.setMasculine(null);
+        result.setFeminine(true);
+        result.setSingular(false);
+        result.setPlural(null);
+        result.setExample("La Maison Blanche.");
+        result.setDefinition(null);
+        result.setOpposite(null);
+        result.setComment(null);
+        result.setPronunciation(null);
+        result.setImage(false);
+        result.setLatitude(null);
+        result.setLongitude(null);
+        result.setPriority(1);
+        result.setMarked(true);
+        result.setCreatedDate(new DateTime());
+        result.setLastModifiedDate(null);
+        return result;
+    }
+
+    private Expression createExpressionAller() {
+        Expression result = new Expression();
+        result.setExpression("aller");
+        result.setTranslation("gehen");
+        result.setMasculine(null);
+        result.setFeminine(null);
+        result.setSingular(null);
+        result.setPlural(null);
+        result.setExample("Je vais à la maison.");
+        result.setDefinition(null);
+        result.setOpposite(null);
+        result.setComment(null);
+        result.setPronunciation(null);
+        result.setImage(false);
+        result.setLatitude(null);
+        result.setLongitude(null);
+        result.setPriority(2);
+        result.setMarked(false);
+        result.setCreatedDate(new DateTime());
+        result.setLastModifiedDate(null);
+        return result;
+    }
+
+    private Expression createExpressionRouge() {
+        Expression result = new Expression();
+        result.setExpression("rouge");
+        result.setTranslation("rot");
+        result.setMasculine(true);
+        result.setFeminine(true);
+        result.setSingular(null);
+        result.setPlural(null);
+        result.setExample("La maison est rouge.");
+        result.setDefinition(null);
+        result.setOpposite(null);
+        result.setComment(null);
+        result.setPronunciation(null);
+        result.setImage(false);
+        result.setLatitude(null);
+        result.setLongitude(null);
+        result.setPriority(3);
+        result.setMarked(false);
+        result.setCreatedDate(new DateTime());
+        result.setLastModifiedDate(null);
+        return result;
     }
 
     @Test

@@ -52,10 +52,12 @@ public class ExpressionResource {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public Page<Expression> getAll(@RequestParam(required = false, defaultValue = DEFAULT_PAGE_INDEX) Integer page,
-                                   @RequestParam(required = false, defaultValue = DEFAULT_PAGE_SIZE) Integer size) {
+    public Page<Expression> getAll(
+            @RequestParam(required = false) Boolean marked,
+            @RequestParam(required = false, defaultValue = DEFAULT_PAGE_INDEX) Integer page,
+            @RequestParam(required = false, defaultValue = DEFAULT_PAGE_SIZE) Integer size) {
         log.debug("REST request to get all Expressions");
-        return expressionRepository.findAll(createPageable(page, size));
+        return expressionRepository.search(marked, createPageable(page, size));
     }
 
     private Pageable createPageable(int page, int size) {
