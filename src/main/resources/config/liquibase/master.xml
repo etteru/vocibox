@@ -9,5 +9,6 @@
     <include file="classpath:config/liquibase/changelog/20141226124500_added_not_null_constraints.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20141228152518_added_entity_Tag.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20141228160000_added_table_T_EXPRESSION_T_TAG.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20150110170000_added_field_Neuter_on_entity_Expression.xml" relativeToChangelogFile="false"/>
     <!-- JHipster will add liquibase changelogs here -->
 </databaseChangeLog>

@@ -67,63 +67,55 @@
                         </div>
                         <div class="form-group">
                             <label>Masculine</label>
-                            <input type="checkbox" class="form-control"
-                                   ng-model="expression.masculine">
+                            <input type="checkbox" class="form-control" ng-model="expression.masculine">
                         </div>
                         <div class="form-group">
                             <label>Feminine</label>
-                            <input type="checkbox" class="form-control"
-                                   ng-model="expression.feminine">
+                            <input type="checkbox" class="form-control" ng-model="expression.feminine">
+                        </div>
+                        <div class="form-group">
+                            <label>Neuter</label>
+                            <input type="checkbox" class="form-control" ng-model="expression.neuter">
                         </div>
                         <div class="form-group">
                             <label>Singular</label>
-                            <input type="checkbox" class="form-control"
-                                   ng-model="expression.singular">
+                            <input type="checkbox" class="form-control" ng-model="expression.singular">
                         </div>
                         <div class="form-group">
                             <label>Plural</label>
-                            <input type="checkbox" class="form-control"
-                                   ng-model="expression.plural">
+                            <input type="checkbox" class="form-control" ng-model="expression.plural">
                         </div>
                         <div class="form-group">
                             <label>Example</label>
-                            <input type="text" class="form-control"
-                                   ng-model="expression.example">
+                            <input type="text" class="form-control" ng-model="expression.example">
                         </div>
                         <div class="form-group">
                             <label>Definition</label>
-                            <input type="text" class="form-control"
-                                   ng-model="expression.definition">
+                            <input type="text" class="form-control" ng-model="expression.definition">
                         </div>
                         <div class="form-group">
                             <label>Opposite</label>
-                            <input type="text" class="form-control"
-                                   ng-model="expression.opposite">
+                            <input type="text" class="form-control" ng-model="expression.opposite">
                         </div>
                         <div class="form-group">
                             <label>Comment</label>
-                            <input type="text" class="form-control"
-                                   ng-model="expression.comment">
+                            <input type="text" class="form-control" ng-model="expression.comment">
                         </div>
                         <div class="form-group">
                             <label>Pronunciation</label>
-                            <input type="text" class="form-control"
-                                   ng-model="expression.pronunciation">
+                            <input type="text" class="form-control" ng-model="expression.pronunciation">
                         </div>
                         <div class="form-group">
                             <label>Image</label>
-                            <input type="checkbox" class="form-control"
-                                   ng-model="expression.image">
+                            <input type="checkbox" class="form-control" ng-model="expression.image">
                         </div>
                         <div class="form-group">
                             <label>Latitude</label>
-                            <input type="text" class="form-control"
-                                   ng-model="expression.latitude">
+                            <input type="text" class="form-control" ng-model="expression.latitude">
                         </div>
                         <div class="form-group">
                             <label>Longitude</label>
-                            <input type="text" class="form-control"
-                                   ng-model="expression.longitude">
+                            <input type="text" class="form-control" ng-model="expression.longitude">
                         </div>
                         <div class="form-group">
                             <label>Priority</label>
@@ -182,12 +174,8 @@
                 <tr>
                     <th>Expression</th>
                     <th>Translation</th>
-                    <th>Masculine</th>
-                    <th>Feminine</th>
-                    <th>Singular</th>
-                    <th>Plural</th>
+                    <th>Gender</th>
                     <th>Priority</th>
-                    <th>Marked</th>
                     <th>Created</th>
                     <th></th>
                 </tr>
@@ -196,12 +184,8 @@
                 <tr ng-repeat="expression in expressions">
                     <td>{{expression.expression}}</td>
                     <td>{{expression.translation}}</td>
-                    <td>{{expression.masculine}}</td>
-                    <td>{{expression.feminine}}</td>
-                    <td>{{expression.singular}}</td>
-                    <td>{{expression.plural}}</td>
+                    <td>{{getGenderAsString(expression)}}</td>
                     <td>{{expression.priority}}</td>
-                    <td>{{expression.marked}}</td>
                     <td>{{expression.createdDate | date}}</td>
                     <td>
                         <button type="submit"

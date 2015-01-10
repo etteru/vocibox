@@ -40,6 +40,9 @@ public class Expression implements Serializable {
     @Column(name = "feminine")
     private Boolean feminine;
 
+    @Column(name = "neuter")
+    private Boolean neuter;
+
     @Column(name = "singular")
     private Boolean singular;
 
@@ -130,6 +133,14 @@ public class Expression implements Serializable {
 
     public void setFeminine(Boolean feminine) {
         this.feminine = feminine;
+    }
+
+    public Boolean getNeuter() {
+        return neuter;
+    }
+
+    public void setNeuter(Boolean neuter) {
+        this.neuter = neuter;
     }
 
     public Boolean getSingular() {
@@ -281,6 +292,7 @@ public class Expression implements Serializable {
                 ", translation='" + translation + "'" +
                 ", masculine='" + masculine + "'" +
                 ", feminine='" + feminine + "'" +
+                ", neuter='" + neuter + "'" +
                 ", singular='" + singular + "'" +
                 ", plural='" + plural + "'" +
                 ", example='" + example + "'" +

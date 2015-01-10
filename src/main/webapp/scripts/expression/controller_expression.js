@@ -62,7 +62,7 @@ vociboxApp.controller('ExpressionController', function ($scope, resolvedExpressi
         };
 
         $scope.clear = function () {
-            $scope.expression = {expression: null, translation: null, masculine: null, feminine: null, singular: null,
+            $scope.expression = {expression: null, translation: null, masculine: null, feminine: null, neuter: null, singular: null,
                 plural: null, example: null, definition: null, opposite: null, comment: null, pronunciation: null,
                 image: null, latitude: null, longitude: null, priority: 3, marked: false,
                 createdDate: null, lastModifiedDate: null, id: null};
@@ -94,5 +94,29 @@ vociboxApp.controller('ExpressionController', function ($scope, resolvedExpressi
             params.tags = getIds($scope.submittedFilter.tags);
             Expression.query(params, callback);
         }
-    });
+
+        $scope.getGenderAsString = function (expression){
+            if (expression.masculine && expression.feminine && expression.neuter){
+                return "m/f/n";
+            }
+            else if (expression.masculine && expression.feminine && !expression.neuter){
+                return "m/f";
+            }
+            else if (expression.masculine && !expression.feminine && expression.neuter){
+                return "m/n";
+            }
+            else if (!expression.masculine && expression.feminine && expression.neuter){
+                return "f/n";
+            }
+            else if (expression.masculine && !expression.feminine && !expression.neuter){
+                return "m";
+            }
+            else if (!expression.masculine && expression.feminine && !expression.neuter){
+                return "f";
+            }
+            else if (!expression.masculine && !expression.feminine && expression.neuter){
+                return "n";
+            }
+        }
+});
 
