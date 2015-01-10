@@ -46,7 +46,10 @@ public class ExpressionResource {
     }
 
     /**
-     * GET  /rest/expressions -> get all the expressions.
+     * Returns all expressions that match the specified search parameters.
+     *
+     * @param tags If this parameter is set, an expression is only returned if it has at least one of the specified tags.
+     *             Please not that the current interface does not allow to search for expressions that don't have a tag.
      */
     @RequestMapping(value = "/rest/expressions",
             method = RequestMethod.GET,
@@ -55,10 +58,12 @@ public class ExpressionResource {
     public Page<Expression> getAll(
             @RequestParam(required = false, defaultValue = DEFAULT_PRIORITIES) Set<Integer> priorities,
             @RequestParam(required = false) Boolean marked,
+            @RequestParam(required = false, defaultValue = "-1") Set<Long> tags,
             @RequestParam(required = false, defaultValue = DEFAULT_PAGE_INDEX) Integer page,
             @RequestParam(required = false, defaultValue = DEFAULT_PAGE_SIZE) Integer size) {
         log.debug("REST request to get all Expressions");
-        return expressionRepository.search(priorities, marked, createPageable(page, size));
+        Page<Expression> result = expressionRepository.search(priorities, marked, tags, createPageable(page, size));
+        return result;
     }
 
     private Pageable createPageable(int page, int size) {

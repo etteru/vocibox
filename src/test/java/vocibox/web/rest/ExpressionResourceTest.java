@@ -273,6 +273,32 @@ public class ExpressionResourceTest {
             .andExpect(jsonPath("$.totalElements").value(2));
     }
 
+    @Test
+    @Transactional
+    public void getAllExpressionsTags() throws Exception {
+        // Initialize the database
+        initDatabase();
+
+        List<Tag> tags = tagRepository.findAll();
+        Long tagVerbeId = null;
+        Long tagAdjectifId = null;
+        for (Tag tag : tags) {
+            if (tag.getName().equals("verbe")) {
+                tagVerbeId = tag.getId();
+            }
+            if (tag.getName().equals("adjectif")) {
+                tagAdjectifId = tag.getId();
+            }
+        }
+
+        // Get all the expressions
+        String path = "/app/rest/expressions?tags=" + tagVerbeId + "," + tagAdjectifId;
+        restExpressionMockMvc.perform(get(path))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$.totalElements").value(2));
+    }
+
     private void initDatabase() {
         Tag tagSubstantif = createTagSubstantif();
         tagRepository.saveAndFlush(tagSubstantif);
@@ -280,10 +306,12 @@ public class ExpressionResourceTest {
         tagRepository.saveAndFlush(tagVerbe);
         Tag tagAdjectif = createTagAdjectif();
         tagRepository.saveAndFlush(tagAdjectif);
+        Tag tagCouleur = createTagCouleur();
+        tagRepository.saveAndFlush(tagCouleur);
 
         expressionRepository.saveAndFlush(createExpressionMaison(tagSubstantif));
         expressionRepository.saveAndFlush(createExpressionAller(tagVerbe));
-        expressionRepository.saveAndFlush(createExpressionRouge(tagAdjectif));
+        expressionRepository.saveAndFlush(createExpressionRouge(tagAdjectif, tagCouleur));
     }
 
     private Expression createExpressionMaison(Tag tagSubstantif) {
@@ -334,7 +362,7 @@ public class ExpressionResourceTest {
         return result;
     }
 
-    private Expression createExpressionRouge(Tag tagAdjectif) {
+    private Expression createExpressionRouge(Tag tagAdjectif, Tag tagCouleur) {
         Expression result = new Expression();
         result.setExpression("rouge");
         result.setTranslation("rot");
@@ -352,7 +380,7 @@ public class ExpressionResourceTest {
         result.setLongitude(null);
         result.setPriority(3);
         result.setMarked(false);
-        result.setTags(new HashSet<>(Arrays.asList(tagAdjectif)));
+        result.setTags(new HashSet<>(Arrays.asList(tagAdjectif, tagCouleur)));
         result.setCreatedDate(new DateTime());
         result.setLastModifiedDate(null);
         return result;
@@ -373,6 +401,12 @@ public class ExpressionResourceTest {
     private Tag createTagAdjectif() {
         Tag result = new Tag();
         result.setName("adjectif");
+        return result;
+    }
+
+    private Tag createTagCouleur() {
+        Tag result = new Tag();
+        result.setName("couleur");
         return result;
     }
 

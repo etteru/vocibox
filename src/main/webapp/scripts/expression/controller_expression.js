@@ -4,10 +4,13 @@ vociboxApp.controller('ExpressionController', function ($scope, resolvedExpressi
 
         $scope.expressions = resolvedExpression.content;
         $scope.tags = resolvedTag;
-        $scope.filter = {priorities: [1,2,3,4,5], marked: null};
+        $scope.submittedFilter = {priorities: null, marked: null, tags: null};
 
         $scope.search = function () {
-            Expression.query({priorities: $scope.filter.priorities, marked: $scope.filter.marked}, function(page) {
+            $scope.submittedFilter.priorities = $scope.filter.priorities;
+            $scope.submittedFilter.marked = $scope.filter.marked;
+            $scope.submittedFilter.tags = $scope.filter.tags;
+            getExpressions({}, function(page) {
                 $scope.expressions = page.content;
                 $scope.totalItems = page.totalElements;
             });
@@ -15,16 +18,24 @@ vociboxApp.controller('ExpressionController', function ($scope, resolvedExpressi
             $scope.currentPage = 1;
         };
 
+        function getIds(tags){
+            var ids = [];
+            for (var key in tags) {
+                var tag = tags[key];
+                ids.push(tag.id);
+            }
+            return ids;
+        }
+
         $scope.create = function () {
             Expression.save($scope.expression,
                 function () {
-                    Expression.query({}, function(page) {
+                    getExpressions({}, function(page) {
                         $scope.expressions = page.content;
                         $scope.totalItems = page.totalElements;
                     });
                     $('#saveExpressionModal').modal('hide');
                     $scope.clear();
-                    $scope.currentPage = 1;
                 });
         };
 
@@ -41,7 +52,7 @@ vociboxApp.controller('ExpressionController', function ($scope, resolvedExpressi
         $scope.delete = function () {
             Expression.delete({id: $scope.expression.id},
                 function () {
-                    Expression.query({page: $scope.currentPage - 1}, function(page) {
+                    getExpressions({page: $scope.currentPage - 1}, function(page) {
                         $scope.expressions = page.content;
                         $scope.totalItems = page.totalElements;
                     });
@@ -58,7 +69,7 @@ vociboxApp.controller('ExpressionController', function ($scope, resolvedExpressi
         };
 
         $scope.random = function () {
-            Expression.query({size:1, page: randomIntFromInterval(0, $scope.totalItems - 1), priorities: $scope.filter.priorities, marked: $scope.filter.marked}, function(page) {
+            getExpressions({size:1, page: randomIntFromInterval(0, $scope.totalItems - 1)}, function(page) {
                 $scope.expression = page.content[0];
             });
         };
@@ -71,10 +82,17 @@ vociboxApp.controller('ExpressionController', function ($scope, resolvedExpressi
         $scope.totalItems = resolvedExpression.totalElements;
 
         $scope.pageChanged = function() {
-            Expression.query({page: $scope.currentPage - 1}, function(page) {
+            getExpressions({page: $scope.currentPage - 1}, function(page) {
               $scope.expressions = page.content;
               $scope.totalItems = page.totalElements;
             });
         };
+
+        function getExpressions(params, callback){
+            params.priorities = $scope.submittedFilter.priorities;
+            params.marked = $scope.submittedFilter.marked;
+            params.tags = getIds($scope.submittedFilter.tags);
+            Expression.query(params, callback);
+        }
     });
 

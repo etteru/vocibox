@@ -21,10 +21,10 @@
             <column name="feminine" type="bit"/>
             <column name="singular" type="bit"/>
             <column name="plural" type="bit"/>
-            <column name="example" type="varchar(255)"/>
-            <column name="definition" type="varchar(255)"/>
-            <column name="opposite" type="varchar(255)"/>
-            <column name="comment" type="varchar(255)"/>
+            <column name="example" type="varchar(1000)"/>
+            <column name="definition" type="varchar(1000)"/>
+            <column name="opposite" type="varchar(1000)"/>
+            <column name="comment" type="varchar(1000)"/>
             <column name="pronunciation" type="varchar(255)"/>
             <column name="image" type="bit"/>
             <column name="latitude" type="decimal(10,2)"/>

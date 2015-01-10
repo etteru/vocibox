@@ -14,10 +14,12 @@ import java.util.Set;
  */
 public interface ExpressionRepository extends JpaRepository<Expression, Long> {
 
-    @Query("select e from Expression e where " +
+    @Query("select distinct e from Expression e left join e.tags t where " +
         "(e.priority in (:priorities)) and " +
-        "(:marked is null or e.marked = :marked)")
-    Page<Expression> search(@Param("priorities") Set<Integer> priorities, @Param("marked") Boolean marked, Pageable pageable);
+        "(:marked is null or e.marked = :marked) and " +
+        "(-1L in (:tags) or t.id in (:tags))")
+    Page<Expression> search(@Param("priorities") Set<Integer> priorities, @Param("marked") Boolean marked,
+                            @Param("tags") Set<Long> tags, Pageable pageable);
 
 
     @Query("select e from Expression e left join fetch e.tags where e.id = :id")

@@ -30,6 +30,11 @@
                 </select>
             </fieldset>
             <fieldset class="form-group">
+                <select class="form-control" ng-options="tag as tag.name for tag in tags track by tag.id"
+                        title="tags" ng-model="filter.tags" multiple data-ng-attr-size="{{ tags.length }}">
+                </select>
+            </fieldset>
+            <fieldset class="form-group">
                 <button type="submit" ng-disabled="filterForm.$invalid" class="btn btn-primary pull-right">
                     <span class="glyphicon glyphicon-search"></span> Search
                 </button>
