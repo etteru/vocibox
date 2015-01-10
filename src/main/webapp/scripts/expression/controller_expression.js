@@ -64,7 +64,7 @@ vociboxApp.controller('ExpressionController', function ($scope, resolvedExpressi
         $scope.clear = function () {
             $scope.expression = {expression: null, translation: null, masculine: null, feminine: null, singular: null,
                 plural: null, example: null, definition: null, opposite: null, comment: null, pronunciation: null,
-                image: null, latitude: null, longitude: null, priority: null, marked: null,
+                image: null, latitude: null, longitude: null, priority: 3, marked: false,
                 createdDate: null, lastModifiedDate: null, id: null};
         };
 
