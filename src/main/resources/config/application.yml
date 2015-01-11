@@ -15,10 +15,10 @@ async:
 
 spring:
     mail:
-        host: localhost
+        host: smtp.sendgrid.net
         port: 25
-        user:
-        password:
+        user: eaFagFl2uZ
+        password: RhaaKyVQAZ
         protocol: smtp
         tls: false
         auth: false

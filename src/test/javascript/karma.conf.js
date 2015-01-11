@@ -24,6 +24,7 @@ module.exports = function (config) {
             'src/main/webapp/bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js',
             'src/main/webapp/bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js',
             'src/main/webapp/bower_components/angular-cache-buster/angular-cache-buster.js',
+            'src/main/webapp/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
             'src/main/webapp/scripts/*.js',
             'src/main/webapp/scripts/**/*.js',
             'src/test/javascript/**/!(karma.conf).js'
