@@ -1,7 +1,7 @@
 <div>
 
     <h2>Expressions</h2>
-
+    <br/>
     <button class="btn btn-primary" data-toggle="modal" data-target="#saveExpressionModal" ng-click="clear()">
         <span class="glyphicon glyphicon-flash"></span> Create a new Expression
     </button>
@@ -15,6 +15,8 @@
     <button class="btn btn-default" ng-click="isCollapsed = !isCollapsed" ng-hide="isCollapsed">
         <span class="glyphicon glyphicon-collapse-down"></span> Hide search filter
     </button>
+    <br/>
+    <br/>
     <div ng-init="isCollapsed = true" collapse="isCollapsed">
         <form name="filterForm" ng-submit="filterForm.$valid && search()" novalidate>
             <h4>Filter</h4>
@@ -176,7 +178,7 @@
                     <th>Translation</th>
                     <th>Gender</th>
                     <th>Priority</th>
-                    <th>Created</th>
+                    <th>Added</th>
                     <th></th>
                 </tr>
             </thead>

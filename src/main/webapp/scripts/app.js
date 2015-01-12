@@ -111,7 +111,7 @@ vociboxApp
                     }
                 })
                 .when('/logout', {
-                    templateUrl: 'views/main.html',
+                    templateUrl: 'views/login.html',
                     controller: 'LogoutController',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
@@ -124,8 +124,16 @@ vociboxApp
                     }
                 })
                 .otherwise({
-                    templateUrl: 'views/main.html',
-                    controller: 'MainController',
+                    templateUrl: 'views/expressions.html',
+                    controller: 'ExpressionController',
+                    resolve:{
+                        resolvedExpression: ['Expression', function (Expression) {
+                            return Expression.query().$promise;
+                        }],
+                        resolvedTag: ['Tag', function (Tag) {
+                            return Tag.query().$promise;
+                        }]
+                    },
                     access: {
                         authorizedRoles: [USER_ROLES.all]
                     }

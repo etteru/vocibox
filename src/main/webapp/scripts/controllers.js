@@ -38,6 +38,7 @@ vociboxApp.controller('LoginController', function ($scope, $location, Authentica
 
 vociboxApp.controller('LogoutController', function ($location, AuthenticationSharedService) {
         AuthenticationSharedService.logout();
+        $location.path("/login");
     });
 
 vociboxApp.controller('SettingsController', function ($scope, Account) {
