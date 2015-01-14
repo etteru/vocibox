@@ -62,6 +62,8 @@ vociboxApp.controller('ExpressionController', function ($scope, resolvedExpressi
         };
 
         $scope.clear = function () {
+            $scope.randomMode = false;
+            $scope.translationOnly = false;
             $scope.expression = {expression: null, translation: null, masculine: null, feminine: null, neuter: null, singular: null,
                 plural: null, example: null, definition: null, opposite: null, comment: null, pronunciation: null,
                 image: null, latitude: null, longitude: null, priority: 3, marked: false,
@@ -69,6 +71,8 @@ vociboxApp.controller('ExpressionController', function ($scope, resolvedExpressi
         };
 
         $scope.random = function () {
+            $scope.randomMode = true;
+            $scope.translationOnly = true;
             getExpressions({size:1, page: randomIntFromInterval(0, $scope.paginationTotalItems - 1)}, function(page) {
                 $scope.expression = page.content[0];
             });
@@ -81,8 +85,14 @@ vociboxApp.controller('ExpressionController', function ($scope, resolvedExpressi
         function setPaginationVariables(page){
             $scope.expressions = page.content;
             $scope.paginationTotalItems = page.totalElements;
-            $scope.paginationFrom = (page.number * page.size) + 1;
-            $scope.paginationTo = $scope.paginationFrom + page.numberOfElements - 1;
+            if (page.totalElements == 0){
+                $scope.paginationFrom = 0;
+                $scope.paginationTo = 0;
+            }
+            else {
+                $scope.paginationFrom = (page.number * page.size) + 1;
+                $scope.paginationTo = $scope.paginationFrom + page.numberOfElements - 1;
+            }
         }
 
         $scope.pageChanged = function() {
