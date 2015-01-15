@@ -74,7 +74,7 @@ vociboxApp.controller('ExpressionController', function ($scope, resolvedExpressi
             $scope.randomMode = true;
             $scope.translationOnly = true;
             getExpressions({size:1, page: randomIntFromInterval(0, $scope.paginationTotalItems - 1)}, function(page) {
-                $scope.expression = page.content[0];
+                $scope.update(page.content[0].id); // make sure tags are fetched as well
             });
         };
 
