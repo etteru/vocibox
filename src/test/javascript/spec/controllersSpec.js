@@ -4,6 +4,21 @@ describe('Controllers Tests ', function () {
 
     beforeEach(module('vociboxApp'));
 
+    describe('filter', function() {
+        describe('gender', function() {
+            it('should return gender as string', inject(function(genderFilter) {
+                expect(genderFilter({masculine: true, feminine: true, neuter: true})).toBe('m/f/n');
+                expect(genderFilter({masculine: true, feminine: true, neuter: false})).toBe('m/f');
+                expect(genderFilter({masculine: true, feminine: false, neuter: true})).toBe('m/n');
+                expect(genderFilter({masculine: false, feminine: true, neuter: true})).toBe('f/n');
+                expect(genderFilter({masculine: true, feminine: false, neuter: false})).toBe('m');
+                expect(genderFilter({masculine: false, feminine: true, neuter: false})).toBe('f');
+                expect(genderFilter({masculine: false, feminine: false, neuter: true})).toBe('n');
+                expect(genderFilter({masculine: false, feminine: false, neuter: false})).toBeNull;
+            }));
+        });
+    });
+
     describe('LoginController', function () {
         var $scope;
 

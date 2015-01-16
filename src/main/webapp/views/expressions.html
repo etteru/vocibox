@@ -183,7 +183,7 @@
                 <tr ng-repeat="expression in expressions">
                     <td>{{expression.expression}}</td>
                     <td>{{expression.translation}}</td>
-                    <td>{{getGenderAsString(expression)}}</td>
+                    <td>{{expression | gender}}</td>
                     <td>{{expression.priority}}</td>
                     <td>{{expression.createdDate | date}}</td>
                     <td>
