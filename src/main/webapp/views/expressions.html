@@ -21,10 +21,12 @@
         <form name="filterForm" ng-submit="filterForm.$valid && search()" novalidate>
             <h4>Filter</h4>
             <fieldset class="form-group">
+                <label>Priorities:</label>
                 <select class="form-control" ng-options="priority for priority in [1,2,3,4,5]" title="priorities" ng-model="filter.priorities" multiple data-ng-attr-size="{{ 5 }}">
                 </select>
             </fieldset>
             <fieldset class="form-group">
+                <label>Marked:</label>
                 <select class="form-control" title="marked" ng-model="filter.marked">
                     <option value=""></option>
                     <option value="false">Not marked</option>
@@ -32,12 +34,16 @@
                 </select>
             </fieldset>
             <fieldset class="form-group">
+                <label>Tags:</label>
                 <select class="form-control" ng-options="tag as tag.name for tag in tags track by tag.id"
                         title="tags" ng-model="filter.tags" multiple data-ng-attr-size="{{ tags.length }}">
                 </select>
             </fieldset>
-            <fieldset class="form-group">
-                <button type="submit" ng-disabled="filterForm.$invalid" class="btn btn-primary pull-right">
+            <fieldset class="form-group pull-right">
+                <button type="button" class="btn" ng-click="resetFilter()">
+                    <span class="glyphicon glyphicon-ban-circle"></span> Reset
+                </button>
+                <button type="submit" ng-disabled="filterForm.$invalid" class="btn btn-primary">
                     <span class="glyphicon glyphicon-search"></span> Search
                 </button>
             </fieldset>

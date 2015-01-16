@@ -20,6 +20,13 @@ vociboxApp.controller('ExpressionController', function ($scope, resolvedExpressi
             $scope.paginationCurrentPage = 1;
         };
 
+        $scope.resetFilter = function () {
+            $scope.filter = {};
+            $scope.filter.priorities = null;
+            $scope.filter.marked = null;
+            $scope.filter.tags = null;
+        };
+
         function getIds(tags){
             var ids = [];
             for (var key in tags) {
